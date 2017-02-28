@@ -1,0 +1,84 @@
+ <?php
+    require_once 'connection.php';
+    $conn = mysqli_connect($dbhost, $dbuser, $dbpw, $dbname);
+    
+     $query = "SELECT * FROM category";
+     $results = $conn->query($query);
+    $r = [];
+
+   while($result = mysqli_fetch_object($results))
+    {
+   array_push($r, $result);
+   }
+   ?>
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>KU Talent CV Website</title>
+     <link href="maincssstyle.css" rel="stylesheet">
+	 </head>
+	 <body>
+	  <div class ="about_header"> 
+	   <img src = "ku logo.jpg" alt = "logo"/>
+		</div>
+	  <nav>
+	 <ul>
+	<li><a href= "home.php">Home</a></li>
+	 <li><a href= "contact.php">Contact KU Talent</a></li>
+	  <li><a href = "">Career Advice</a></li>
+	   <li><a href ="">News</a></li> 
+	   <li><a href = "help.php">Help</a></li>
+	 </ul>
+	 </nav>
+	 <div class = "upload_container">
+	 <h4>Upload Your CV</h4>
+         
+	 <div class = "select1">
+         <label style="color:blue;">Category</label>
+         <select>
+         <?php foreach ($r as $cat): ?>
+            <option name="op" value = "Select A Category"><?= $cat->CategoryID ?>
+                <?= $cat->Categoryname ?>
+             </option>
+         <?php endforeach; ?>
+          </select>    
+	 </div>
+       <div class="select2">
+         <label style="color:blue;">ID</label>
+         <input type="text" name="studentid" required/>
+         </div>
+         <div class="upload_button">
+             <input type = "file" name ="file" id ="uploadfile"/> 
+             <?php
+    
+             $target_file = 'C:/windows/users/zack/document/cv.txt';
+             $uploadOK = 1;
+             $filetype = pathinfo($target_file, PATHINFO_EXTENSION);
+             
+            if(file_exists($target_file))
+             {
+              echo "File is already existent";
+             }
+             ?>
+             
+         <br/><br/>
+	      <input type="checkbox" name="check" checked/>Click to share CV with employers
+         <br/><br/>
+           <input type= "submit" name ="submit" value = "Upload CV" checked/>
+             
+         <?php
+            
+            //$sqlu ="INSERT INTO cv(Filename,CategoryID,StudentID) VALUES('{$_POST['file']}','{$_POST['op']}','{$_POST['studentid']}')"; 
+            //$conn->query($sqlu);
+         ?>
+         </div>
+         
+	 <p id = "terms">By submitting your CV,you are agreeing to Kingston University's Terms of Service and agree to be contacted by employers</p>
+	 </div>
+	   </body>
+	 </html>

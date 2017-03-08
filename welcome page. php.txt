@@ -1,0 +1,106 @@
+<?php
+session_start();
+require_once 'connection.php';
+?>
+
+<!doctype html>
+<html>
+<head>
+<title>Welcome Page</title>
+<link href="maincssstyle.css" rel="stylesheet">
+ <script type = "text/javascript">
+	  function download(){
+	   window.location.href = 'download.php';
+	  }
+      function addcat(){
+	   window.location.href = 'addcategory.php';
+	  }
+	  function status(){
+	    window.location.href = 'status.php';
+	  }
+	   function upload(){
+	    window.location.href = 'uploadconnection.php';
+	  }
+	   function logout(){
+	    window.location.href = 'logout.php';
+	  }
+      function password(){
+	    window.location.href = 'generate.php';
+	  }
+     function registeration(){
+	    window.location.href = 'registeration.php';
+	  }
+	  </script>
+</head>
+<body>
+     <div id ="welcome">
+       <img src = "logo.jpg" alt = "logo" style = "height:100px; margin:10px;"/>
+         <h4 style="text-align:center; color:blue;"> KU TALENT</h4>
+         <h4 style="text-align:center;">WELCOME TO KU TALENT MENU PAGE</h4>
+          </div>
+    <div id="help_nav">
+<ul>
+ <li><a href ="home.php">Home</a></li>
+ <li><a href ="about.php">Using KU Talent</a>
+ <li><a href = "contact.php">Contact Us</a></li>
+<li><input type = "button" value = "Logout" style = "position:relative; left:700px; top:1px;" onclick = "logout()"/></li>    
+        </ul>
+    </div>
+    <div id = "welcome_info">
+    <hr>
+    <br>   
+    <?php 
+     print '<p style = "color:red;"><b>ACL: ' .$_SESSION['level']."</b></p>";
+    print '<p style = "color:red;"><b>ID: ' .$_SESSION['id']."</b></p>";
+    print '<p style ="color:red;"><b>Name:'. $_SESSION['fname'].'  '.$_SESSION['lname']."</b></p>";  
+     print '<p style = "color:red;"><b>Job Title: ' .$_SESSION['job']."</b></p>";
+    ?>
+        <hr>
+<form action = "connection.php" method = "post">
+    
+    <?php if($_SESSION['level'] == 1): ?>
+        <div>
+        <form method = "post" action= "connection.php">
+        <input type="button" value="VIEW STATUS" onClick = "status()"/>
+        <input type="button" value= "UPLOAD CV" onClick = "upload()" />
+        </form>
+    </div>
+    <?php endif; ?>
+    
+    <?php if($_SESSION['level'] == 2): ?>
+        <div>
+        <form method = "post" action= "connection.php">
+        <input type="button" value="VIEW STATUS" onClick = "status.php"/>
+        <input type="button" value= "ADD NEW CATEGORY" onClick = "addcat()" />
+        <input type="button" value="DOWNLOAD CV" onClick = "download()"/>
+        <input type="button" value= "FEEDBACK" onClick = "feedback()" />
+        <input type="button" value="GENERATE PASSWORD" onClick = "password()"/>    
+        </form>
+    </div>
+    <?php endif; ?>
+
+    <?php if($_SESSION['level'] == 0): ?>
+        <div>
+        <form method = "post" action= "connection.php">
+        <input type="button" value="MANAGE CATEGORIES" onClick = "status.php"/>
+        <input type="button" value= "ADD NEW STUDENT/KU STAFF" onClick = "registeration()" />
+            <input type="button" value= "ADD NEW EMPLOYER" onClick = "empregisteration()" />
+        <input type="button" value="EDIT USER" onClick = "download()"/>
+        <input type="button" value= "DELETE USER" onClick = "feedback.php" />
+        <input type="button" value="MANAGE CV" onClick = "generate.php"/>    
+        </form>
+    </div>
+    <?php endif; ?>
+    
+    <?php if($_SESSION['level'] == 3): ?>
+        <div>
+        <form method = "post" action= "connection.php">
+        <input type="submit" value="DOWNLOAD CV" onClick = "download.php"/>
+        <input type="submit" value= "CONTACT KU" onClick = "contact.php" />
+        </form>
+    </div>
+    <?php endif; ?>
+    </form>
+    </div>
+</body>
+</html>

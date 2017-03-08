@@ -1,0 +1,47 @@
+<?php
+session_start();
+require_once 'connection.php';
+
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>KU Talent CV Website</title>
+     <link href="maincssstyle.css" rel="stylesheet">
+	 
+	 </head>
+	 <body>
+         <div class = "authenticate_header">
+	 <img src = "logo.jpg" alt = "logo" style = "height:100px;"/>
+	 <h5 style = "font-size:20px;font-family:arial; text-align:center; color:white;" >User Authentication</h5>
+             <hr>
+         </div>
+          <nav>
+	 <ul>
+	  <li><a href ="home.php">Home</a></li> 
+	  <li><a href = "contact.php">Contact Us</a></li>
+	   <li><a href ="">News</a></li> 
+        <li><a href ="">Categories</a></li> 	   
+	 </ul>
+	 </nav>
+	 
+	 <div class = "authenticate_container">
+         <?= (isset($_GET['message'])) ? $_GET['message'] : ""; ?>
+  <form action ="login.php" method= "post"> 
+      <br><br>
+<p>Username: <br> <input type="text" name="username" required/></p>
+<p>Password: <br> <input type="password" name="password" required/></p>
+      <p><input type="submit" name = "submit" value="Login" /></p>
+<h5 style ="text-align:center; margin:50px;"><a href ="password.php">Forgot Password</a></h5>
+</form>
+	 </div>
+        <p><strong>Need Help Contact KU Talent</strong></p>
+	<h5>Telephone: 0208417 7445</h5>
+        <h5>Email:kutalent@kingston.ac.uk </h5>
+	 </body>
+	 </html>
